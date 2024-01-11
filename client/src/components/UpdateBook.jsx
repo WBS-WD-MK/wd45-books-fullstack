@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../axiosInstance';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const UpdateBook = () => {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_SERVER_BASE_URL}/api/books/${id}`)
+      .get(`/api/books/${id}`)
       .then(res => setBook(res.data))
       .catch(e => console.error(e));
   }, []);
@@ -23,7 +23,7 @@ const UpdateBook = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .put(`${import.meta.env.VITE_SERVER_BASE_URL}/api/books/${id}`, book)
+      .put(`/api/books/${id}`, book)
       .then(res => navigate('/'))
       .catch(e => console.error(e));
   };

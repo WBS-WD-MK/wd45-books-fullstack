@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../axiosInstance';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const NewBook = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_SERVER_BASE_URL}/api/books`, { title, author, year })
+      .post(`/api/books`, { title, author, year })
       .then(res => navigate('/'))
       .catch(e => console.error(e));
   };

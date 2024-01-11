@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../axiosInstance';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ const Books = () => {
   const [books, setBooks] = useState([]);
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_SERVER_BASE_URL}/api/books`)
+      .get(`/api/books`)
       .then(res => setBooks(res.data))
       .catch(e => console.error(e));
   }, []);
@@ -16,8 +16,8 @@ const Books = () => {
       <h2>Books</h2>
       <ul>
         {books.map(book => (
-          <li key={book.id}>
-            <Link to={`/books/${book.id}`}>
+          <li key={book._id}>
+            <Link to={`/books/${book._id}`}>
               {book.title} by {book.author}
             </Link>
           </li>

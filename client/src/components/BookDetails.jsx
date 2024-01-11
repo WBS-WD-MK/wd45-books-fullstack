@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../axiosInstance';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const BookDetails = () => {
@@ -8,13 +8,13 @@ const BookDetails = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_SERVER_BASE_URL}/api/books/${id}`)
+      .get(`/api/books/${id}`)
       .then(res => setBook(res.data))
       .catch(e => console.error(e));
   }, []);
   const handleDelete = () => {
     axios
-      .delete(`${import.meta.env.VITE_SERVER_BASE_URL}/api/books/${id}`)
+      .delete(`/api/books/${id}`)
       .then(res => navigate('/'))
       .catch(e => console.error(e));
   };
