@@ -1,21 +1,44 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
 
-const Header = () => {
+import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../context/Auth';
+function Header() {
+  const { user, logout } = useContext(AuthContext);
+
   return (
-    <header>
+    <header className="header">
+      <h1>Book App</h1>
       <nav>
-        <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/books/new">Add Book</NavLink>
-          </li>
-        </ul>
+        <div>
+          <NavLink className="nav-link" to={'/'}>
+            Home
+          </NavLink>
+          <span> | </span>
+          <NavLink className="nav-link" to={'/books/new'}>
+            Add New Book
+          </NavLink>
+        </div>
+        <>
+          {user ? (
+            <div className="header-user">
+              <p>Hello: {user.username}</p>
+              <button onClick={logout}>Logout</button>
+            </div>
+          ) : (
+            <div className="header-user">
+              <NavLink className="nav-link" to={'/login'}>
+                Login
+              </NavLink>
+              <span> | </span>
+              <NavLink className="nav-link" to={'/register'}>
+                Register
+              </NavLink>
+            </div>
+          )}
+        </>
       </nav>
     </header>
   );
-};
+}
 
 export default Header;

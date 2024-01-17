@@ -2,7 +2,7 @@ const Book = require('../models/book');
 
 const createBook = async (req, res) => {
   try {
-    const newBook = await Book.create(req.body);
+    const newBook = await Book.create({ ...req.body, createdBy: req.user._id });
     res.status(201).json(newBook);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -10,7 +10,7 @@ const createBook = async (req, res) => {
 };
 const getAllBooks = async (req, res) => {
   try {
-    const books = await Book.find();
+    const books = await Book.find().populate('createdBy', 'username email');
     res.json(books);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -20,7 +20,7 @@ const getBookById = async (req, res) => {
   const { id } = req.params;
   try {
     // const book = await Book.findById(id) //return book object
-    const books = await Book.find({ _id: id }); //returns array
+    const books = await Book.find({ _id: id }).populate('createdBy', 'username email'); //returns array
     if (books.length === 0) {
       res.status(404).json({ message: `Book with id ${id} Not Found` });
     } else {

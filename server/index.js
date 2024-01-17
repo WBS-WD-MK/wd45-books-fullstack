@@ -8,7 +8,7 @@ const booksRouter = require('./routes/books');
 const authRouter = require('./routes/users');
 const PORT = process.env.PORT || 4000;
 const app = express();
-app.use(cors());
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 // all routes should be registered after the global middlewares cors and express.json()
