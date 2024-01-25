@@ -6,12 +6,7 @@ const dayInMilliseconds = 24 * 60 * 60 * 1000;
 const register = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
-    const userPayload = {
-      _id: newUser._id,
-      email: newUser.email,
-      username: newUser.username,
-      role: newUser.role,
-    };
+    const userPayload = { _id: newUser._id, email: newUser.email, username: newUser.username };
     const userToken = jwt.sign(userPayload, SECRET);
     res
       .status(201)
@@ -44,7 +39,6 @@ const login = async (req, res) => {
             _id: userDoc._id,
             email: userDoc.email,
             username: userDoc.username,
-            role: userDoc.role,
           };
           const userToken = jwt.sign(userPayload, SECRET);
           res

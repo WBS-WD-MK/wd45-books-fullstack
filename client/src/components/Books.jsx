@@ -1,7 +1,10 @@
 import axios from '../axiosInstance';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { useSocket } from '../context/Socket';
+=======
+>>>>>>> parent of f068214 (socket added)
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -11,10 +14,6 @@ const Books = () => {
       .get(`/api/books`)
       .then(res => setBooks(res.data))
       .catch(e => console.error(e));
-
-    socket.on('bookCreated', newBook => {
-      setBooks(books => [newBook, ...books]);
-    });
   }, []);
 
   return (
