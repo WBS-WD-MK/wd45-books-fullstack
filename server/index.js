@@ -26,8 +26,10 @@ io.on('connection', socket => {
   socket.on('createBook', async payload => {
     try {
       const newBook = await Book.create({ ...payload });
+      console.log('PAYLOADDD', payload);
       io.emit('bookCreated', newBook);
     } catch (error) {
+      console.log('ERRORRRRR', error);
       io.emit('bookCreationError', error);
     }
   });
