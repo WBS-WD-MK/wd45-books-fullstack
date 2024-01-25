@@ -10,9 +10,9 @@ const SocketProvider = ({ children }) => {
     const newSocket = io(import.meta.env.VITE_SERVER_BASE_URL || '', { transports: ['websocket'] });
     setSocket(newSocket);
 
-    return () => {
-      newSocket.disconnect();
-    };
+    // return () => {
+    //   newSocket.disconnect();
+    // };
   }, []);
 
   return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
