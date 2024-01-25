@@ -1,10 +1,10 @@
 import axios from '../axiosInstance';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import io from 'socket.io-client';
-const socket = io(import.meta.env.VITE_SERVER_BASE_URL, { transports: ['websocket'] });
+
 import { useContext } from 'react';
 import { AuthContext } from '../context/Auth';
+import { useSocket } from '../context/Socket';
 
 const NewBook = () => {
   const [title, setTitle] = useState('');
@@ -12,6 +12,7 @@ const NewBook = () => {
   const [year, setYear] = useState(0);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const socket = useSocket();
   const handleSubmit = e => {
     e.preventDefault();
     // axios
@@ -23,8 +24,9 @@ const NewBook = () => {
   };
   useEffect(() => {
     return () => {
+      //cleanup
       //disconnect
-      // remove React.StrictMode
+      socket.disconnect();
     };
   }, []);
 

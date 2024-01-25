@@ -1,10 +1,11 @@
 import axios from '../axiosInstance';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import io from 'socket.io-client';
-const socket = io(import.meta.env.VITE_SERVER_BASE_URL, { transports: ['websocket'] });
+import { useSocket } from '../context/Socket';
+
 const Books = () => {
   const [books, setBooks] = useState([]);
+  const socket = useSocket();
   useEffect(() => {
     axios
       .get(`/api/books`)
