@@ -1,41 +1,32 @@
 import axios from '../axiosInstance';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-
+import io from 'socket.io-client';
+const socket = io(import.meta.env.VITE_SERVER_BASE_URL, { transports: ['websocket'] });
 import { useContext } from 'react';
 import { AuthContext } from '../context/Auth';
-import { useSocket } from '../context/Socket';
-=======
->>>>>>> parent of f068214 (socket added)
 
 const NewBook = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [year, setYear] = useState(0);
   const navigate = useNavigate();
-<<<<<<< HEAD
   const { user } = useContext(AuthContext);
-  const socket = useSocket();
-=======
->>>>>>> parent of f068214 (socket added)
   const handleSubmit = e => {
     e.preventDefault();
-    axios
-      .post(`/api/books`, { title, author, year })
-      .then(res => navigate('/'))
-      .catch(e => console.error(e));
+    // axios
+    //   .post(`/api/books`, { title, author, year })
+    //   .then(res => navigate('/'))
+    //   .catch(e => console.error(e));
+    socket.emit('createBook', { title, author, year, createdBy: user._id });
+    navigate('/');
   };
-<<<<<<< HEAD
   useEffect(() => {
     return () => {
-      //cleanup
       //disconnect
       socket.disconnect();
     };
   }, []);
-=======
->>>>>>> parent of f068214 (socket added)
 
   return (
     <div>

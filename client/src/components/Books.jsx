@@ -1,19 +1,24 @@
 import axios from '../axiosInstance';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import { useSocket } from '../context/Socket';
-=======
->>>>>>> parent of f068214 (socket added)
-
+import io from 'socket.io-client';
+const socket = io(import.meta.env.VITE_SERVER_BASE_URL, { transports: ['websocket'] });
 const Books = () => {
   const [books, setBooks] = useState([]);
-  const socket = useSocket();
   useEffect(() => {
     axios
       .get(`/api/books`)
       .then(res => setBooks(res.data))
       .catch(e => console.error(e));
+
+    socket.on('bookCreated', newBook => {
+      setBooks(books => [newBook, ...books]);
+    });
+    return () => {
+      //cleanup
+      //disconnect
+      socket.disconnect();
+    };
   }, []);
 
   return (
