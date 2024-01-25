@@ -7,7 +7,7 @@ const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_SERVER_BASE_URL, { transports: ['websocket'] });
+    const newSocket = io(import.meta.env.VITE_SERVER_BASE_URL || '', { transports: ['websocket'] });
     setSocket(newSocket);
 
     return () => {
